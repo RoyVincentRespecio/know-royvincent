@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roy Vincent Respecio | Web Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #2c3e50);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .profile-img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      margin: 0 auto 20px;
+      display: block;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .name {
+      text-align: center;
+      font-size: 2em;
+      font-weight: 700;
+    }
+
+    .role {
+      text-align: center;
+      font-size: 1.1em;
+      color: #a0c4ff;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    .tagline {
+      text-align: center;
+      font-size: 0.95em;
+      color: #ccc;
+      font-style: italic;
+      margin-bottom: 30px;
+    }
+
+    .info-section {
+      margin-bottom: 20px;
+      padding-left: 10px;
+      border-left: 3px solid #a0c4ff;
+    }
+
+    .info-section h3 {
+      color: #ffb703;
+      margin-bottom: 5px;
+      font-size: 1.2em;
+    }
+
+    .info-section p {
+      font-size: 1em;
+      color: #e0e0e0;
+    }
+
+    .socials {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .socials a {
+      margin: 0 15px;
+      color: #fff;
+      font-size: 1.5em;
+      transition: transform 0.3s ease;
+    }
+
+    .socials a:hover {
+      transform: scale(1.2);
+      color: #ffb703;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.9em;
+      color: #999;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 20px;
+      }
+      .name {
+        font-size: 1.5em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <img src="profile.jpg" alt="Vincent Respecio" class="profile-img">
+
+    <div class="name">Roy Vincent General Respecio</div>
+    <div class="role">WEB DEVELOPER | MR CCS 2024–2025</div>
+    <div class="tagline">From code to crown — I lead, I build, I inspire.</div>
+
+    <div class="info-section">
+      <h3>About Me</h3>
+      <p>
+        With grace and unwavering confidence, I proudly wear the crown of <strong>MR CCS 2024–2025</strong>. At 22 years old, I bring together a tall frame, moreno charm, and an enduring passion for building modern websites that turn bold ideas into digital realities.
+        <br><br>
+        Alongside my technical pursuits, I have been entrusted with leadership roles that shaped both my character and capabilities. I currently serve as the <strong>Vice President of the Computer Science Department (2024–2025)</strong>, following my terms as <strong>Mayor of Computer Science</strong> in both <strong>2023–2024</strong> and <strong>2025–2026</strong>. These experiences have sharpened my skills in organization, collaboration, and leading with purpose.
+      </p>
+    </div>
+
+    <div class="info-section">
+      <h3>Course</h3>
+      <p>Bachelor of Science in Computer Science</p>
+    </div>
+
+    <div class="info-section">
+      <h3>School</h3>
+      <p>Jose Rizal Memorial State University - Main Campus, Dapitan City</p>
+    </div>
+
+    <div class="info-section">
+      <h3>From</h3>
+      <p>La Libertad, Gutalac, Zamboanga del Norte</p>
+    </div>
+
+    <div class="socials">
+      <a href="https://www.facebook.com/profile.php?id=100012935882415&ref=_ig_profile_ac" target="_blank" title="Facebook">
+        <i class="fab fa-facebook"></i>
+      </a>
+      <a href="https://www.instagram.com/vincent_general_respecio/?__pwa=1" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+
+    <footer>
+      &copy; 2025 Roy Vincent Respecio. All rights reserved.
+    </footer>
+  </div>
+
+</body>
+</html>
