@@ -15,23 +15,57 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1e1e2f, #2c3e50);
+      background: #0f0f0f;
       color: #fff;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40px 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Techy Animated Background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        #1f1f1f 0px,
+        #1f1f1f 1px,
+        #141414 1px,
+        #141414 20px
+      );
+      z-index: -2;
+      animation: moveBg 15s linear infinite;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, rgba(0,255,204,0.04) 0%, transparent 70%);
+      z-index: -1;
+    }
+
+    @keyframes moveBg {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 20px; }
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 20px;
       padding: 40px;
       max-width: 800px;
-      width: 100%;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+      margin: 60px auto;
+      box-shadow: 0 0 25px rgba(0,255,204,0.2);
     }
 
     .profile-img {
@@ -39,10 +73,10 @@
       height: 160px;
       object-fit: cover;
       border-radius: 50%;
-      border: 4px solid #fff;
+      border: 4px solid #00ffc3;
       margin: 0 auto 20px;
       display: block;
-      animation: float 5s ease-in-out infinite;
+      animation: float 4s ease-in-out infinite;
     }
 
     @keyframes float {
@@ -53,14 +87,15 @@
 
     .name {
       text-align: center;
-      font-size: 2em;
+      font-size: 2.2em;
       font-weight: 700;
+      color: #00ffc3;
     }
 
     .role {
       text-align: center;
       font-size: 1.1em;
-      color: #a0c4ff;
+      color: #80ffea;
       margin-bottom: 10px;
       letter-spacing: 2px;
     }
@@ -76,7 +111,7 @@
     .info-section {
       margin-bottom: 20px;
       padding-left: 10px;
-      border-left: 3px solid #a0c4ff;
+      border-left: 3px solid #00ffc3;
     }
 
     .info-section h3 {
@@ -97,9 +132,9 @@
 
     .socials a {
       margin: 0 15px;
-      color: #fff;
+      color: #00ffc3;
       font-size: 1.5em;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, color 0.3s;
     }
 
     .socials a:hover {
@@ -110,7 +145,7 @@
     footer {
       text-align: center;
       margin-top: 30px;
-      font-size: 0.9em;
+      font-size: 0.85em;
       color: #999;
     }
 
@@ -119,7 +154,7 @@
         padding: 20px;
       }
       .name {
-        font-size: 1.5em;
+        font-size: 1.6em;
       }
     }
   </style>
