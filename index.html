@@ -16,14 +16,14 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: #0f0f0f;
+      background: #0a0a12;
       color: #fff;
       overflow-x: hidden;
       position: relative;
       min-height: 100vh;
     }
 
-    /* Tech grid background */
+    /* Tech grid background with circuit pattern */
     body::before {
       content: "";
       position: fixed;
@@ -31,11 +31,11 @@
       left: 0;
       width: 200%;
       height: 200%;
-      background: radial-gradient(#00ffc3 0.5px, transparent 1px),
-                  radial-gradient(#00ffc3 0.5px, transparent 1px);
+      background: 
+        linear-gradient(90deg, rgba(0,255,195,0.03) 1px, transparent 1px),
+        linear-gradient(rgba(0,255,195,0.03) 1px, transparent 1px);
       background-size: 40px 40px;
       background-position: 0 0, 20px 20px;
-      opacity: 0.03;
       z-index: -3;
       animation: gridmove 40s linear infinite;
     }
@@ -45,15 +45,60 @@
       100% { transform: translate(-40px, -40px); }
     }
 
-    body::after {
-      content: "";
+    /* Floating tech elements */
+    .tech-element {
+      position: fixed;
+      opacity: 0.1;
+      z-index: -2;
+      animation: floatTech 15s infinite linear;
+    }
+
+    @keyframes floatTech {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(50px, 50px) rotate(180deg); }
+      100% { transform: translate(0, 0) rotate(360deg); }
+    }
+
+    /* Robot animations */
+    .robot {
+      position: fixed;
+      width: 60px;
+      height: 90px;
+      z-index: -1;
+      opacity: 0.15;
+      animation: robotMove 30s linear infinite;
+    }
+
+    @keyframes robotMove {
+      0% { transform: translate(-100px, -100px); }
+      25% { transform: translate(calc(100vw + 100px), 50vh); }
+      50% { transform: translate(50vw, calc(100vh + 100px)); }
+      75% { transform: translate(calc(100vw + 100px), 75vh); }
+      100% { transform: translate(-100px, -100px); }
+    }
+
+    /* Binary rain effect */
+    .binary-rain {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(ellipse at center, rgba(0,255,204,0.08) 0%, transparent 70%);
       z-index: -2;
+      overflow: hidden;
+    }
+
+    .binary-digit {
+      position: absolute;
+      color: rgba(0, 255, 195, 0.3);
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      animation: rain 5s linear infinite;
+    }
+
+    @keyframes rain {
+      0% { transform: translateY(-100px); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
     }
 
     /* LOADING SCREEN */
@@ -63,10 +108,11 @@
       top: 0; left: 0;
       width: 100%;
       height: 100%;
-      background: #0f0f0f;
+      background: #0a0a12;
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       transition: opacity 1s ease;
     }
 
@@ -74,9 +120,22 @@
       font-family: 'Orbitron', sans-serif;
       color: #00ffc3;
       font-size: 1.4rem;
-      text-shadow: 0 0 10px #00ffc3, 0 0 30px #00ffc3;
+      text-shadow: 0 0 10px #00ffc3;
       letter-spacing: 2px;
       animation: flicker 2s infinite;
+      margin-bottom: 20px;
+    }
+
+    .loading-robot {
+      width: 80px;
+      height: 80px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2300ffc3"><path d="M21 9h-1V6c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v3H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zM8 6h8v3H8V6zm4 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>') center no-repeat;
+      animation: robotPulse 1.5s infinite alternate;
+    }
+
+    @keyframes robotPulse {
+      0% { transform: scale(1); opacity: 0.7; }
+      100% { transform: scale(1.2); opacity: 1; }
     }
 
     @keyframes flicker {
@@ -86,16 +145,37 @@
 
     /* CARD + PROFILE STYLES */
     .card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(0, 255, 195, 0.15);
-      border-radius: 20px;
+      background: rgba(10, 10, 30, 0.7);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 255, 195, 0.3);
+      border-radius: 15px;
       padding: 40px;
       max-width: 820px;
       margin: 70px auto;
-      box-shadow: 0 0 40px rgba(0,255,204,0.3);
+      box-shadow: 0 0 40px rgba(0,255,204,0.2),
+                  0 0 80px rgba(0,100,255,0.1);
       transition: 0.4s;
       display: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        rgba(0,255,195,0.05) 0%,
+        rgba(0,255,195,0) 20%,
+        rgba(0,255,195,0) 80%,
+        rgba(0,255,195,0.05) 100%
+      );
+      transform: rotate(30deg);
+      z-index: -1;
     }
 
     .profile-img {
@@ -107,6 +187,8 @@
       margin: 0 auto 20px;
       display: block;
       animation: float 4s ease-in-out infinite;
+      box-shadow: 0 0 20px rgba(0,255,195,0.5),
+                  0 0 40px rgba(0,255,195,0.3);
     }
 
     @keyframes float {
@@ -121,6 +203,8 @@
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
       color: #00ffc3;
+      text-shadow: 0 0 10px rgba(0,255,195,0.5);
+      margin-bottom: 5px;
     }
 
     .role {
@@ -141,19 +225,44 @@
 
     .info-section {
       margin-bottom: 20px;
-      padding-left: 10px;
+      padding: 15px;
+      border-radius: 8px;
+      background: rgba(0, 20, 30, 0.3);
       border-left: 3px solid #00ffc3;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(0,255,195,0.05) 0%, transparent 100%);
+      z-index: -1;
     }
 
     .info-section h3 {
       color: #ffb703;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
       font-size: 1.2em;
+      display: flex;
+      align-items: center;
+    }
+
+    .info-section h3::before {
+      content: ">";
+      color: #00ffc3;
+      margin-right: 8px;
+      font-family: 'Courier New', monospace;
     }
 
     .info-section p {
       font-size: 1em;
       color: #e0e0e0;
+      line-height: 1.6;
     }
 
     .socials {
@@ -162,16 +271,25 @@
     }
 
     .socials a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
       margin: 0 15px;
       color: #00ffc3;
       font-size: 1.5em;
-      transition: transform 0.3s ease, color 0.3s, text-shadow 0.3s;
+      transition: all 0.3s ease;
+      background: rgba(0, 255, 195, 0.1);
+      border-radius: 50%;
+      border: 1px solid rgba(0, 255, 195, 0.3);
     }
 
     .socials a:hover {
-      transform: scale(1.3);
+      transform: scale(1.2) translateY(-5px);
       color: #ffb703;
-      text-shadow: 0 0 15px #00ffc3, 0 0 30px #ffb703;
+      background: rgba(0, 255, 195, 0.2);
+      box-shadow: 0 0 15px #00ffc3, 0 0 30px rgba(255, 183, 3, 0.3);
     }
 
     footer {
@@ -183,21 +301,41 @@
       letter-spacing: 1px;
     }
 
+    /* Responsive adjustments */
     @media (max-width: 600px) {
       .card {
         padding: 20px;
+        margin: 40px 15px;
       }
       .name {
         font-size: 1.7em;
+      }
+      .robot {
+        width: 40px;
+        height: 60px;
+        opacity: 0.1;
+      }
+      .profile-img {
+        width: 120px;
+        height: 120px;
       }
     }
   </style>
 </head>
 <body>
 
+  <!-- Tech background elements -->
+  <div class="binary-rain" id="binaryRain"></div>
+  <div class="robot" style="top: 20%; left: 10%;"></div>
+  <div class="robot" style="top: 60%; left: 80%;"></div>
+  <div class="tech-element" style="top: 30%; left: 70%; font-size: 24px;">⚙️</div>
+  <div class="tech-element" style="top: 70%; left: 20%; font-size: 24px;">🔋</div>
+  <div class="tech-element" style="top: 10%; left: 50%; font-size: 24px;">💾</div>
+
   <!-- Loading screen -->
   <div id="loading-screen">
-    <div class="loader-text">DEVELOPER INFO<span class="dots">...</span></div>
+    <div class="loader-text">SYSTEM INITIALIZING<span class="dots">...</span></div>
+    <div class="loading-robot"></div>
   </div>
 
   <!-- Main Card Content -->
@@ -205,7 +343,7 @@
     <img src="profile.jpg" alt="Vincent Respecio" class="profile-img">
 
     <div class="name">Roy Vincent General Respecio</div>
-    <div class="role">WEB DEVELOPER | V-PRESIDENT </div>
+    <div class="role">WEB DEVELOPER | MR CCS 2024–2025</div>
     <div class="tagline">From code to crown — I lead, I build, I inspire.</div>
 
     <div class="info-section">
@@ -239,15 +377,22 @@
       <a href="https://www.instagram.com/vincent_general_respecio/?__pwa=1" target="_blank" title="Instagram">
         <i class="fab fa-instagram"></i>
       </a>
+      <a href="#" title="GitHub">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="#" title="LinkedIn">
+        <i class="fab fa-linkedin"></i>
+      </a>
     </div>
 
     <footer>
-      &copy; 2025 Roy Vincent Respecio. All rights reserved.
+      &copy; 2025 Roy Vincent Respecio. All systems operational.
     </footer>
   </div>
 
-  <!-- JS for loading screen -->
+  <!-- JS for loading screen and animations -->
   <script>
+    // Loading screen transition
     window.addEventListener('load', function () {
       const loader = document.getElementById('loading-screen');
       const card = document.querySelector('.card');
@@ -258,7 +403,7 @@
       }, 1000);
     });
 
-    // Optional: animated dots
+    // Animated dots
     let dotCount = 0;
     setInterval(() => {
       const dots = document.querySelector(".dots");
@@ -267,6 +412,47 @@
         dots.innerHTML = ".".repeat(dotCount);
       }
     }, 500);
+
+    // Binary rain effect
+    function createBinaryRain() {
+      const container = document.getElementById('binaryRain');
+      const digits = ['0', '1'];
+      const count = 50;
+      
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          const digit = document.createElement('div');
+          digit.className = 'binary-digit';
+          digit.textContent = digits[Math.floor(Math.random() * digits.length)];
+          digit.style.left = Math.random() * 100 + 'vw';
+          digit.style.animationDuration = (3 + Math.random() * 7) + 's';
+          digit.style.animationDelay = Math.random() * 5 + 's';
+          container.appendChild(digit);
+          
+          // Remove digit after animation completes
+          setTimeout(() => {
+            digit.remove();
+          }, 10000);
+        }, i * 200);
+      }
+    }
+
+    // Create initial binary rain
+    createBinaryRain();
+    
+    // Continue creating new binary digits
+    setInterval(createBinaryRain, 3000);
+
+    // Floating robots
+    const robots = document.querySelectorAll('.robot');
+    robots.forEach((robot, index) => {
+      robot.style.animationDelay = `${index * 5}s`;
+      robot.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(0,255,195,0.15)">
+          <path d="M21 9h-1V6c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v3H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zM8 6h8v3H8V6zm4 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+        </svg>
+      `;
+    });
   </script>
 
 </body>
