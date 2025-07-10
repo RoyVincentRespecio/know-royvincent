@@ -101,15 +101,59 @@
       100% { transform: translateY(100vh); opacity: 0; }
     }
 
+    /* Notice Popup Styles */
+    .notice-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+      color: #00ffc3;
+      text-align: center;
+      padding: 20px;
+      font-family: 'Orbitron', sans-serif;
+    }
+    
+    .notice-popup h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00ffc3;
+      animation: pulse 2s infinite;
+    }
+    
+    .notice-popup p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+    
+    .countdown {
+      font-size: 1.5rem;
+      color: #ffb703;
+      font-family: 'Orbitron', sans-serif;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
     /* LOADING SCREEN */
     #loading-screen {
       position: fixed;
-      z-index: 9999;
+      z-index: 9998;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
       background: #0a0a12;
-      display: flex;
+      display: none;
       justify-content: center;
       align-items: center;
       flex-direction: column;
@@ -263,6 +307,11 @@
       font-size: 1em;
       color: #e0e0e0;
       line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .info-section strong {
+      color: #00ffc3;
     }
 
     .socials {
@@ -319,6 +368,13 @@
         width: 120px;
         height: 120px;
       }
+      .notice-popup h2 {
+        font-size: 1.5rem;
+      }
+      .notice-popup p {
+        font-size: 1rem;
+        padding: 0 15px;
+      }
     }
   </style>
 </head>
@@ -331,6 +387,13 @@
   <div class="tech-element" style="top: 30%; left: 70%; font-size: 24px;">⚙️</div>
   <div class="tech-element" style="top: 70%; left: 20%; font-size: 24px;">🔋</div>
   <div class="tech-element" style="top: 10%; left: 50%; font-size: 24px;">💾</div>
+
+  <!-- Notice Popup -->
+  <div id="noticePopup" class="notice-popup">
+    <h2>IMPORTANT NOTICE</h2>
+    <p>The information shown here is just a brief introduction about me. To really know me, you need to meet me in person!</p>
+    <div class="countdown" id="countdown">5</div>
+  </div>
 
   <!-- Loading screen -->
   <div id="loading-screen">
@@ -349,25 +412,22 @@
     <div class="info-section">
       <h3>About Me</h3>
       <p>
-        With grace and unwavering confidence, I proudly wear the crown of <strong>MR CCS 2024–2025</strong>. At 22 years old, I bring together a tall frame, moreno charm, and an enduring passion for building modern websites that turn bold ideas into digital realities.
+        With grace and unwavering confidence, I proudly wear the crown of <strong>MR CCS 2024–2025</strong>. At <strong>22 years old</strong>, I bring together a tall frame, moreno charm, and an enduring passion for building modern websites that turn bold ideas into digital realities.
         <br><br>
         Alongside my technical pursuits, I have been entrusted with leadership roles that shaped both my character and capabilities. I currently serve as the <strong>Vice President of the Computer Science Department (2024–2025)</strong>, following my terms as <strong>Mayor of Computer Science</strong> in both <strong>2023–2024</strong> and <strong>2025–2026</strong>. These experiences have sharpened my skills in organization, collaboration, and leading with purpose.
       </p>
     </div>
 
     <div class="info-section">
-      <h3>Course</h3>
-      <p>COLLEGE OF COMPUTING STUDIES-Bachelor of Science in Computer Science</p>
+      <h3>Personal Information</h3>
+      <p><strong>Age:</strong> 22 years old</p>
+      <p><strong>From:</strong> La Libertad, Gutalac, Zamboanga del Norte</p>
     </div>
 
     <div class="info-section">
-      <h3>School</h3>
-      <p>Jose Rizal Memorial State University - Main Campus, Dapitan City</p>
-    </div>
-
-    <div class="info-section">
-      <h3>From</h3>
-      <p>La Libertad, Gutalac, Zamboanga del Norte</p>
+      <h3>Education</h3>
+      <p><strong>Course:</strong> Bachelor of Science in Computer Science</p>
+      <p><strong>School:</strong> Jose Rizal Memorial State University - Main Campus, Dapitan City</p>
     </div>
 
     <div class="socials">
@@ -390,18 +450,39 @@
     </footer>
   </div>
 
-  <!-- JS for loading screen and animations -->
   <script>
-    // Loading screen transition
-    window.addEventListener('load', function () {
-      const loader = document.getElementById('loading-screen');
-      const card = document.querySelector('.card');
-      loader.style.opacity = '0';
+    // Notice Popup Countdown
+    let countdown = 5;
+    const countdownElement = document.getElementById('countdown');
+    const noticePopup = document.getElementById('noticePopup');
+    const loadingScreen = document.getElementById('loading-screen');
+    
+    const countdownInterval = setInterval(() => {
+      countdown--;
+      countdownElement.textContent = countdown;
+      
+      if (countdown <= 0) {
+        clearInterval(countdownInterval);
+        noticePopup.style.opacity = '0';
+        setTimeout(() => {
+          noticePopup.style.display = 'none';
+          // Start loading screen after notice
+          loadingScreen.style.display = 'flex';
+          // Start the main loading process
+          simulateLoading();
+        }, 500);
+      }
+    }, 1000);
+
+    function simulateLoading() {
       setTimeout(() => {
-        loader.style.display = 'none';
-        card.style.display = 'block';
-      }, 1000);
-    });
+        loadingScreen.style.opacity = '0';
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+          document.querySelector('.card').style.display = 'block';
+        }, 1000);
+      }, 2000); // Loading screen shows for 2 seconds
+    }
 
     // Animated dots
     let dotCount = 0;
@@ -429,7 +510,6 @@
           digit.style.animationDelay = Math.random() * 5 + 's';
           container.appendChild(digit);
           
-          // Remove digit after animation completes
           setTimeout(() => {
             digit.remove();
           }, 10000);
@@ -454,6 +534,5 @@
       `;
     });
   </script>
-
 </body>
 </html>
